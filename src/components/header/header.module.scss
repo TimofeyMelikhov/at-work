@@ -1,0 +1,20 @@
+.box {
+	height: 56px;
+	background-color: #fff;
+	.container {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		max-width: 80%;
+		margin: 0 auto;
+		.logoTitle {
+			display: flex;
+		}
+		&__logo {
+			width: 24px;
+			height: 24px;
+			background: url('src/assets/img/logo-sign.svg');
+			margin-right: 10px;
+		}
+	}
+}
