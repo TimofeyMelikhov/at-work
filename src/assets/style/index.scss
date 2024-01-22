@@ -6,7 +6,7 @@
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
-	font-family: $default-font;
+	font-family: $default-font-M;
 	letter-spacing: 0.5px;
 	&:before,
 	&:after {
@@ -27,7 +27,7 @@ body {
 body {
 	padding: 0;
 	margin: 0;
-	background-color: #f4f4f4;
+	background-color: $Color-05;
 	min-width: 320px;
 	position: relative;
 	overflow-x: hidden;

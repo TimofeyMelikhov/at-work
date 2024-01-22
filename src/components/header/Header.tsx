@@ -1,19 +1,28 @@
 import { Link } from 'react-router-dom'
+import foto from 'src/assets/img/Foto.png'
 
 import classes from 'src/components/header/header.module.scss'
 
 export const Header = () => {
 	return (
-		<div className={classes.box}>
-			<div className={classes.container}>
-				<div className={classes.logoTitle}>
-					<Link to='/'>
-						<div className={classes.container__logo}></div>
-						<div>at-work</div>
-					</Link>
+		<nav className={classes.header}>
+			<div className={classes.header__content}>
+				<div className={classes.leftSection}>
+					<div className={classes.leftSection__logo}></div>
+					<div className={classes.leftSection__title}>
+						at-<span>work</span>
+					</div>
 				</div>
-				<div>info</div>
+				<div className={classes.rightSection}>
+					<div className={classes.rightSection__favorites}></div>
+					<div className={classes.rightSection__notification}></div>
+					<div
+						className={classes.rightSection__avatar}
+						style={{ backgroundImage: `url(${foto})` }}
+					/>
+					<div className={classes.rightSection__nickname}>user</div>
+				</div>
 			</div>
-		</div>
+		</nav>
 	)
 }
