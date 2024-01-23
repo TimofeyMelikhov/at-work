@@ -1,0 +1,49 @@
+@import 'src/assets/style/variables';
+
+.dropdown {
+	position: relative;
+	display: inline-block;
+	cursor: pointer;
+	&__trigger {
+		display: flex;
+		align-items: center;
+	}
+	&__menu {
+		position: absolute;
+		top: 100%;
+		right: 0;
+		width: 200px;
+		border-radius: 12px;
+		background-color: #fff;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		border: 1px solid #ccc;
+		z-index: 100;
+		padding: 8px;
+		box-shadow: 0px 0px 2px 0px #5a5a5a;
+	}
+
+	&__option {
+		padding: 8px;
+		cursor: pointer;
+		font-family: $default-font-M;
+		font-size: 16px;
+		font-weight: 500;
+		padding: 8px, 12px, 8px, 12px;
+		&:hover {
+			background-color: #f0f0f0;
+			border-radius: 12px;
+		}
+	}
+}
+
+.dots {
+	width: 24px;
+	height: 24px;
+	background: url('src/assets/img/dots.svg');
+	&:hover {
+		background: url('src/assets/img/dots_hover.svg');
+	}
+	&__tap {
+		background: url('src/assets/img/dots_tap.svg');
+	}
+}

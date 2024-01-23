@@ -7,18 +7,36 @@ import classes from 'src/pages/main/mainPage.module.scss'
 export const MainPage: React.FC = () => {
 	const { data: users, isLoading } = useGetUsersQuery()
 
-	if (isLoading) {
-		return <div>Loading...</div>
-	}
+	const arhive = [] as string[]
 
 	return (
 		<>
 			<div className={classes.titleSection}>Активные</div>
-			<div className={classes.cardSection}>
-				{users?.map(({ username, id }) => (
-					<Card key={id} username={username} />
-				))}
-			</div>
+			{!isLoading ? (
+				<div className={classes.cardSection}>
+					{users?.map(
+						({
+							id,
+							username,
+							address: { city },
+							company: { name: companyName }
+						}) => (
+							<Card
+								key={id}
+								username={username}
+								city={city}
+								companyName={companyName}
+							/>
+						)
+					)}
+				</div>
+			) : (
+				<div>Загрузка</div>
+			)}
+			<div className={classes.titleSection}>Архив</div>
+			{arhive.length && (
+				<div className={classes.cardSection}>{arhive?.map(() => <Card />)}</div>
+			)}
 		</>
 	)
 }

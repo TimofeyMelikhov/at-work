@@ -1,1 +1,38 @@
 @import 'src/assets/style/variables';
+
+.card {
+	display: flex;
+	width: 360px;
+	padding: 24px;
+	background-color: $Color-06;
+	border-radius: 8px;
+	&__photo {
+		border-radius: 8px;
+		width: 112px;
+		height: 120px;
+		margin-right: 20px;
+	}
+	&__info {
+		display: flex;
+		flex-direction: column;
+		font-family: $default-font-M;
+		width: 180px;
+		.info__username {
+			font-size: 20px;
+			color: $ColorAccent;
+			font-weight: 600;
+		}
+		.info__companyName {
+			margin-top: 4px;
+
+			font-size: 16px;
+			font-weight: 500;
+		}
+		.info__city {
+			font-size: 14px;
+			font-weight: 500;
+			color: $Color-04;
+			margin-top: auto;
+		}
+	}
+}
