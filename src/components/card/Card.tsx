@@ -8,15 +8,10 @@ interface ICardProp {
 	username: string
 	city: string
 	companyName: string
+	cardId: number
 }
 
-export const Card = ({ username, city, companyName }: ICardProp) => {
-	let isArchived = false
-
-	const options = isArchived
-		? ['Активировать']
-		: ['Редактировать', 'Архивировать', 'Скрыть']
-
+export const Card = ({ username, city, companyName, cardId }: ICardProp) => {
 	return (
 		<div className={classes.card}>
 			<div className={classes.card__photo}>
@@ -30,7 +25,7 @@ export const Card = ({ username, city, companyName }: ICardProp) => {
 					}}
 				>
 					<div className={classes.info__username}>{username}</div>
-					<Dropdown options={options} />
+					<Dropdown cardId={cardId} isArchived={true} />
 				</div>
 				<div className={classes.info__companyName}>{companyName}</div>
 				<div className={classes.info__city}>{city}</div>

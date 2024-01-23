@@ -4,11 +4,13 @@ import { IUser } from 'src/models/IUsersModel'
 interface UserState {
 	users: IUser[]
 	selectedUser: IUser | null
+	archivedUsers: IUser[]
 }
 
 const initialState: UserState = {
 	users: [] as IUser[],
-	selectedUser: null
+	selectedUser: null,
+	archivedUsers: [] as IUser[]
 }
 
 export const userSlice = createSlice({
@@ -26,9 +28,27 @@ export const userSlice = createSlice({
 			if (state.selectedUser) {
 				state.selectedUser = { ...state.selectedUser, ...action.payload }
 			}
+		},
+		filteredUsers: (state, action: PayloadAction<number>) => {
+			state.users = state.users.filter(item => item.id !== action.payload)
+		},
+		userToArchive: (state, action: PayloadAction<number>) => {
+			const userId = action.payload
+			const userIndex = state.users.findIndex(user => user.id === userId)
+
+			if (userIndex !== -1) {
+				const archivedUser = state.users.splice(userIndex, 1)[0]
+				state.archivedUsers.push(archivedUser)
+			}
 		}
 	}
 })
 
 export default userSlice.reducer
-export const { setUsers, selectUser, updateUserData } = userSlice.actions
+export const {
+	setUsers,
+	selectUser,
+	updateUserData,
+	filteredUsers,
+	userToArchive
+} = userSlice.actions

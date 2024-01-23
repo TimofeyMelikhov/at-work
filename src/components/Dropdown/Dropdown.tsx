@@ -1,20 +1,45 @@
 import { useState } from 'react'
+import { useAppDispatch, useAppSelector } from 'src/hook/redux'
+import { filteredUsers, userToArchive } from 'src/store/slices/userSlice'
 
 import classes from 'src/components/Dropdown/dropdown.module.scss'
 
 type DropdownProps = {
-	options: string[]
+	cardId: number
 }
 
-export const Dropdown = ({ options }: DropdownProps) => {
+export const Dropdown = ({ cardId }: DropdownProps) => {
 	const [isOpen, setIsOpen] = useState(false)
+	const dispatch = useAppDispatch()
+	const archiveUsers = useAppSelector(state => state.users.archivedUsers)
+
+	const isArchived = archiveUsers.some(user => user.id === cardId)
+
+	const options = isArchived
+		? ['Активировать']
+		: ['Редактировать', 'Архивировать', 'Скрыть']
 
 	const toggleDropdown = () => {
 		setIsOpen(!isOpen)
 	}
 
 	const handleOptionClick = (option: string) => {
-		console.log(`Выбран пункт: ${option}`)
+		switch (option) {
+			case 'Скрыть':
+				dispatch(filteredUsers(cardId))
+				break
+			case 'Архивировать':
+				dispatch(userToArchive(cardId))
+				break
+			case 'Редактировать':
+				dispatch(editCardAction(cardId))
+				break
+			case 'Активировать':
+				dispatch(editCardAction(cardId))
+				break
+			default:
+				break
+		}
 		setIsOpen(false)
 	}
 

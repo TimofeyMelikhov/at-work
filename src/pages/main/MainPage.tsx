@@ -1,3 +1,6 @@
+import { useEffect } from 'react'
+import { useAppDispatch, useAppSelector } from 'src/hook/redux'
+import { setUsers } from 'src/store/slices/userSlice'
 import { useGetUsersQuery } from 'src/store/user.api'
 
 import { Card } from 'src/components/card/Card'
@@ -5,9 +8,17 @@ import { Card } from 'src/components/card/Card'
 import classes from 'src/pages/main/mainPage.module.scss'
 
 export const MainPage: React.FC = () => {
-	const { data: users, isLoading } = useGetUsersQuery()
+	const dispatch = useAppDispatch()
+	const { data, isLoading } = useGetUsersQuery()
+	const users = useAppSelector(state => state.users.users)
 
-	const arhive = [] as string[]
+	const archiveUsers = useAppSelector(state => state.users.archivedUsers)
+
+	useEffect(() => {
+		if (data) {
+			dispatch(setUsers(data))
+		}
+	}, [data, dispatch])
 
 	return (
 		<>
@@ -26,6 +37,7 @@ export const MainPage: React.FC = () => {
 								username={username}
 								city={city}
 								companyName={companyName}
+								cardId={id}
 							/>
 						)
 					)}
@@ -34,8 +46,25 @@ export const MainPage: React.FC = () => {
 				<div>Загрузка</div>
 			)}
 			<div className={classes.titleSection}>Архив</div>
-			{arhive.length && (
-				<div className={classes.cardSection}>{arhive?.map(() => <Card />)}</div>
+			{!!archiveUsers.length && (
+				<div className={classes.cardSection}>
+					{archiveUsers?.map(
+						({
+							id,
+							username,
+							address: { city },
+							company: { name: companyName }
+						}) => (
+							<Card
+								key={id}
+								username={username}
+								city={city}
+								companyName={companyName}
+								cardId={id}
+							/>
+						)
+					)}
+				</div>
 			)}
 		</>
 	)
