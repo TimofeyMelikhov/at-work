@@ -1,4 +1,5 @@
 import userPhoto from 'src/assets/img/user_photo.png'
+import { useAppSelector } from 'src/hook/redux'
 
 import classes from 'src/components/card/card.module.scss'
 
@@ -12,9 +13,15 @@ interface ICardProp {
 }
 
 export const Card = ({ username, city, companyName, cardId }: ICardProp) => {
+	const archiveUsers = useAppSelector(state => state.users.archivedUsers)
+
+	const isArchived = archiveUsers.some(user => user.id === cardId)
+
 	return (
 		<div className={classes.card}>
-			<div className={classes.card__photo}>
+			<div
+				className={`${classes.card__photo} ${isArchived ? classes.card__photo_gray : ''}`}
+			>
 				<img src={userPhoto} alt='user photo' />
 			</div>
 			<div className={classes.card__info}>
@@ -24,11 +31,23 @@ export const Card = ({ username, city, companyName, cardId }: ICardProp) => {
 						justifyContent: 'space-between'
 					}}
 				>
-					<div className={classes.info__username}>{username}</div>
-					<Dropdown cardId={cardId} isArchived={true} />
+					<div
+						className={`${classes.info__username} ${isArchived ? classes.info__username_gray : ''}`}
+					>
+						{username}
+					</div>
+					<Dropdown cardId={cardId} />
 				</div>
-				<div className={classes.info__companyName}>{companyName}</div>
-				<div className={classes.info__city}>{city}</div>
+				<div
+					className={`${classes.info__companyName} ${isArchived ? classes.info__companyName_gray : ''}`}
+				>
+					{companyName}
+				</div>
+				<div
+					className={`${classes.info__city} ${isArchived ? classes.info__city_gray : ''}`}
+				>
+					{city}
+				</div>
 			</div>
 		</div>
 	)

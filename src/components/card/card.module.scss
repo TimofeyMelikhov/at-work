@@ -12,6 +12,13 @@
 		height: 120px;
 		margin-right: 20px;
 	}
+	&__photo_gray {
+		border-radius: 8px;
+		width: 112px;
+		height: 120px;
+		margin-right: 20px;
+		filter: grayscale(1);
+	}
 	&__info {
 		display: flex;
 		flex-direction: column;
@@ -22,17 +29,25 @@
 			color: $ColorAccent;
 			font-weight: 600;
 		}
+		.info__username_gray {
+			color: $Color-02;
+		}
 		.info__companyName {
 			margin-top: 4px;
-
 			font-size: 16px;
 			font-weight: 500;
+		}
+		.info__companyName_gray {
+			color: $Color-03;
 		}
 		.info__city {
 			font-size: 14px;
 			font-weight: 500;
 			color: $Color-04;
 			margin-top: auto;
+		}
+		.info__city_gray {
+			color: $Color-04;
 		}
 	}
 }

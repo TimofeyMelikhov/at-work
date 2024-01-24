@@ -1,6 +1,12 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from 'src/hook/redux'
-import { filteredUsers, userToArchive } from 'src/store/slices/userSlice'
+import {
+	activateUser,
+	filteredUsers,
+	selectUser,
+	userToArchive
+} from 'src/store/slices/userSlice'
 
 import classes from 'src/components/Dropdown/dropdown.module.scss'
 
@@ -12,6 +18,7 @@ export const Dropdown = ({ cardId }: DropdownProps) => {
 	const [isOpen, setIsOpen] = useState(false)
 	const dispatch = useAppDispatch()
 	const archiveUsers = useAppSelector(state => state.users.archivedUsers)
+	const navigate = useNavigate()
 
 	const isArchived = archiveUsers.some(user => user.id === cardId)
 
@@ -32,10 +39,11 @@ export const Dropdown = ({ cardId }: DropdownProps) => {
 				dispatch(userToArchive(cardId))
 				break
 			case 'Редактировать':
-				dispatch(editCardAction(cardId))
+				dispatch(selectUser(cardId))
+				navigate(`/user/${cardId}`)
 				break
 			case 'Активировать':
-				dispatch(editCardAction(cardId))
+				dispatch(activateUser(cardId))
 				break
 			default:
 				break

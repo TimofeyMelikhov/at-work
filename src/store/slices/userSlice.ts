@@ -38,7 +38,19 @@ export const userSlice = createSlice({
 
 			if (userIndex !== -1) {
 				const archivedUser = state.users.splice(userIndex, 1)[0]
+				archivedUser.id = userIndex
 				state.archivedUsers.push(archivedUser)
+			}
+		},
+		activateUser: (state, action: PayloadAction<number>) => {
+			const userId = action.payload
+			const userIndex = state.archivedUsers.findIndex(
+				user => user.id === userId
+			)
+
+			if (userIndex !== -1) {
+				const activatedUser = state.archivedUsers.splice(userIndex, 1)[0]
+				state.users.splice(activatedUser.id, 0, activatedUser)
 			}
 		}
 	}
@@ -50,5 +62,6 @@ export const {
 	selectUser,
 	updateUserData,
 	filteredUsers,
-	userToArchive
+	userToArchive,
+	activateUser
 } = userSlice.actions
