@@ -1,16 +1,20 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import fotoProfile from 'src/assets/img/FotoProfile.png'
+import success from 'src/assets/img/Icon.svg'
 import { useAppDispatch, useAppSelector } from 'src/hook/redux'
 import { IUser } from 'src/models/IUsersModel'
 import { updateUserData } from 'src/store/slices/userSlice'
 
 import { DefaultButton } from 'src/components/ui/defaultButton/DefaultButton'
+import { Modal } from 'src/components/ui/modal/Modal'
 import { TextField } from 'src/components/ui/textField/TextField'
 
 import classes from 'src/pages/userSetting/userSetting.module.scss'
 
 export const UserSetting = () => {
+	const [modalActive, setModalActive] = useState<boolean>(false)
+
 	const user = useAppSelector(state => state.users.selectedUser)
 	const dispatch = useAppDispatch()
 
@@ -47,7 +51,7 @@ export const UserSetting = () => {
 			}
 		}
 		dispatch(updateUserData(updatedUser))
-		alert('Данные успешно сохранены')
+		setModalActive(true)
 	}
 
 	const menuItem = [
@@ -65,6 +69,22 @@ export const UserSetting = () => {
 					<div className={classes.header__text}> Назад </div>
 				</div>
 			</Link>
+
+			<Modal active={modalActive} setActive={setModalActive}>
+				<div
+					style={{
+						display: 'flex',
+						flexDirection: 'column',
+						justifyContent: 'center',
+						alignItems: 'center'
+					}}
+				>
+					<div>
+						<img src={success} alt='' />
+					</div>
+					<div style={{ paddingTop: '20px' }}>Изменения сохранены!</div>
+				</div>
+			</Modal>
 
 			<div className={classes.container}>
 				<div className={classes.container__menu}>

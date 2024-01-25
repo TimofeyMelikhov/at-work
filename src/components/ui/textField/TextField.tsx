@@ -10,7 +10,7 @@ interface ITextFieldProps {
 export const TextField = ({ inputValue, onChangeHandler }: ITextFieldProps) => {
 	const inputRef = useRef<HTMLInputElement>(null)
 
-	let resetInput = (): void => {
+	const resetInput = (): void => {
 		onChangeHandler({ target: { value: '' } } as ChangeEvent<HTMLInputElement>)
 
 		if (inputRef.current) {
