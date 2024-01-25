@@ -11,8 +11,10 @@
 	font-weight: 600;
 	font-family: $default-font-M;
 	border-radius: 50px;
+	transition: all 0.3s;
 	&:hover {
 		background-color: $Color-05;
 		color: $Color-02;
+		transition: all 0.3s;
 	}
 }

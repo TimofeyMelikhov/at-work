@@ -1,15 +1,21 @@
-import React from 'react'
+import { ChangeEvent, useRef } from 'react'
 
 import classes from 'src/components/ui/textField/textField.module.scss'
 
 interface ITextFieldProps {
 	inputValue: string
-	onChange: (value: string) => void
+	onChangeHandler: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
-export const TextField = ({ inputValue, onChange }: ITextFieldProps) => {
-	let resetInput = (event: React.MouseEvent<HTMLInputElement>): void => {
-		event.currentTarget.value = ''
+export const TextField = ({ inputValue, onChangeHandler }: ITextFieldProps) => {
+	const inputRef = useRef<HTMLInputElement>(null)
+
+	let resetInput = (): void => {
+		onChangeHandler({ target: { value: '' } } as ChangeEvent<HTMLInputElement>)
+
+		if (inputRef.current) {
+			inputRef.current.focus()
+		}
 	}
 
 	return (
@@ -18,7 +24,8 @@ export const TextField = ({ inputValue, onChange }: ITextFieldProps) => {
 				<input
 					type='text'
 					value={inputValue}
-					onChange={e => onChange(e.target.value)}
+					onChange={onChangeHandler}
+					ref={inputRef}
 				/>
 				<div className={classes.resetInput} onClick={resetInput} />
 			</div>

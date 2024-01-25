@@ -24,9 +24,14 @@ export const userSlice = createSlice({
 			state.selectedUser =
 				state.users.find(user => user.id === action.payload) || null
 		},
-		updateUserData: (state, action: PayloadAction<IUser[]>) => {
-			if (state.selectedUser) {
-				state.selectedUser = { ...state.selectedUser, ...action.payload }
+		updateUserData: (state, action: PayloadAction<IUser>) => {
+			const updatedUser = action.payload
+			const userIndex = state.users.findIndex(
+				user => user.id === updatedUser.id
+			)
+
+			if (userIndex !== -1) {
+				state.users[userIndex] = updatedUser
 			}
 		},
 		filteredUsers: (state, action: PayloadAction<number>) => {
@@ -38,7 +43,6 @@ export const userSlice = createSlice({
 
 			if (userIndex !== -1) {
 				const archivedUser = state.users.splice(userIndex, 1)[0]
-				archivedUser.id = userIndex
 				state.archivedUsers.push(archivedUser)
 			}
 		},
@@ -50,7 +54,7 @@ export const userSlice = createSlice({
 
 			if (userIndex !== -1) {
 				const activatedUser = state.archivedUsers.splice(userIndex, 1)[0]
-				state.users.splice(activatedUser.id, 0, activatedUser)
+				state.users.push(activatedUser)
 			}
 		}
 	}

@@ -15,7 +15,7 @@ export const MainPage: React.FC = () => {
 	const archiveUsers = useAppSelector(state => state.users.archivedUsers)
 
 	useEffect(() => {
-		if (data) {
+		if (data && !users.length) {
 			dispatch(setUsers(data))
 		}
 	}, [data, dispatch])

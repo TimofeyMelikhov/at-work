@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import fotoProfile from 'src/assets/img/FotoProfile.png'
 import { useAppDispatch, useAppSelector } from 'src/hook/redux'
+import { IUser } from 'src/models/IUsersModel'
 import { updateUserData } from 'src/store/slices/userSlice'
 
 import { DefaultButton } from 'src/components/ui/defaultButton/DefaultButton'
@@ -10,25 +12,50 @@ import classes from 'src/pages/userSetting/userSetting.module.scss'
 
 export const UserSetting = () => {
 	const user = useAppSelector(state => state.users.selectedUser)
-	const [editedUser, setEditedUser] = useState<any>(null)
 	const dispatch = useAppDispatch()
 
-	console.log(user)
-
-	const handleInputChange = (field: string, value: string) => {
-		setEditedUser((prevUser: any) => ({
-			...prevUser,
-			[field]: value
-		}))
-	}
+	const [name, setName] = useState(user?.name || '')
+	const [username, setUsername] = useState(user?.username || '')
+	const [email, setEmail] = useState(user?.email || '')
+	const [city, setCity] = useState(user?.address?.city || '')
+	const [phone, setPhone] = useState(user?.phone || '')
+	const [companyName, setCompanyName] = useState(user?.company?.name || '')
 
 	useEffect(() => {
-		setEditedUser(user)
-	}, [user])
+		setName(user?.name || '')
+		setUsername(user?.username || '')
+		setEmail(user?.email || '')
+		setCity(user?.address?.city || '')
+		setPhone(user?.phone || '')
+		setCompanyName(user?.company?.name || '')
+	}, [user, dispatch])
 
 	const handleSaveChanges = () => {
-		dispatch(updateUserData(editedUser))
+		const updatedUser: IUser = {
+			...user,
+			name,
+			username,
+			email,
+			address: {
+				...user?.address,
+				city
+			},
+			phone,
+			company: {
+				...user?.company,
+				name: companyName
+			}
+		}
+		dispatch(updateUserData(updatedUser))
+		alert('Данные успешно сохранены')
 	}
+
+	const menuItem = [
+		'Данные профиля',
+		'Рабочее пространство',
+		'Приватность',
+		'Безопасность'
+	]
 
 	return (
 		<>
@@ -39,31 +66,66 @@ export const UserSetting = () => {
 				</div>
 			</Link>
 
-			<DefaultButton onClick={handleSaveChanges}>Сохранить</DefaultButton>
-			<TextField
-				inputValue={editedUser?.name}
-				onChange={value => handleInputChange('name', value)}
-			/>
-			<TextField
-				inputValue={editedUser?.username}
-				onChange={value => handleInputChange('username', value)}
-			/>
-			<TextField
-				inputValue={editedUser?.email}
-				onChange={value => handleInputChange('email', value)}
-			/>
-			<TextField
-				inputValue={editedUser?.address?.city}
-				onChange={value => handleInputChange('address', value)}
-			/>
-			<TextField
-				inputValue={editedUser?.phone}
-				onChange={value => handleInputChange('phone', value)}
-			/>
-			<TextField
-				inputValue={editedUser?.company?.name}
-				onChange={value => handleInputChange('company', value)}
-			/>
+			<div className={classes.container}>
+				<div className={classes.container__menu}>
+					<div>
+						<img src={fotoProfile} alt='' />
+					</div>
+					<div className={classes.menu__item}>
+						{menuItem.map(item => (
+							<div> {item} </div>
+						))}
+					</div>
+				</div>
+				<div className={classes.container__info}>
+					<div className={classes.info__title}>Данные профиля</div>
+					<div>
+						<div className={classes.info__label}>Имя</div>
+						<TextField
+							inputValue={name}
+							onChangeHandler={e => setName(e.target.value)}
+						/>
+					</div>
+					<div>
+						<div className={classes.info__label}>Никнейм</div>
+						<TextField
+							inputValue={username}
+							onChangeHandler={e => setUsername(e.target.value)}
+						/>
+					</div>
+					<div>
+						<div className={classes.info__label}>Почта</div>
+						<TextField
+							inputValue={email}
+							onChangeHandler={e => setEmail(e.target.value)}
+						/>
+					</div>
+					<div>
+						<div className={classes.info__label}>Город</div>
+						<TextField
+							inputValue={city}
+							onChangeHandler={e => setCity(e.target.value)}
+						/>
+					</div>
+					<div>
+						<div className={classes.info__label}>Телефон</div>
+						<TextField
+							inputValue={phone}
+							onChangeHandler={e => setPhone(e.target.value)}
+						/>
+					</div>
+					<div>
+						<div className={classes.info__label}>Название компании</div>
+						<TextField
+							inputValue={companyName}
+							onChangeHandler={e => setCompanyName(e.target.value)}
+						/>
+					</div>
+					<div className={classes.info_button}>
+						<DefaultButton onClick={handleSaveChanges}>Сохранить</DefaultButton>
+					</div>
+				</div>
+			</div>
 		</>
 	)
 }
