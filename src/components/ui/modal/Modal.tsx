@@ -1,5 +1,5 @@
 import cn from 'clsx'
-import { ReactNode } from 'react'
+import { ReactNode, useEffect } from 'react'
 
 import classes from 'src/components/ui/modal/modal.module.scss'
 
@@ -10,6 +10,12 @@ interface IModalProps {
 }
 
 export const Modal = ({ active, setActive, children }: IModalProps) => {
+	useEffect(() => {
+		setTimeout(() => {
+			setActive(false)
+		}, 4000)
+	}, [active])
+
 	return (
 		<div
 			className={cn(classes.modal, {

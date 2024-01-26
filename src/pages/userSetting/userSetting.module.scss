@@ -12,7 +12,6 @@
 	}
 	&__text {
 		text-decoration: none;
-		font-family: $default-font-M;
 		font-size: 20px;
 		font-weight: 600;
 	}
@@ -26,6 +25,8 @@
 	margin-top: 44px;
 	justify-content: space-between;
 	&__menu {
+		display: flex;
+		flex-direction: column;
 		flex-grow: 0;
 		width: 360px;
 		padding: 40px;
@@ -42,26 +43,11 @@
 	}
 }
 
-.menu__item {
-	margin-top: 40px;
-}
-
 .info__title {
 	margin-bottom: 24px;
 	border-bottom: 1px solid $Color-04;
 	padding-bottom: 18px;
 	font-size: 24px;
-	font-family: $default-font-M;
 	font-weight: 600;
 	color: $Color-01;
-}
-
-.info__label {
-	margin-bottom: 10px;
-	font-family: $default-font-M;
-	font-size: 18px;
-	font-weight: 600;
-}
-.info_button {
-	margin-top: 32px;
 }

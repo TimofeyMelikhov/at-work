@@ -1,0 +1,18 @@
+@import 'src/assets/style/variables';
+
+.tabs {
+	margin-top: 40px;
+	font-size: 16px;
+	&__item {
+		font-weight: 500;
+		border-bottom: 1px solid $Color-04;
+		padding-bottom: 12px;
+		color: $Color-03;
+		margin-bottom: 24px;
+		cursor: pointer;
+		&_active {
+			color: $Color-01;
+			font-weight: 600;
+		}
+	}
+}

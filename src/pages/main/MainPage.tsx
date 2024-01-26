@@ -43,29 +43,31 @@ export const MainPage: React.FC = () => {
 					)}
 				</div>
 			) : (
-				<div>Загрузка</div>
+				<div>Загрузка...</div>
 			)}
 			<div className={classes.titleSection}>Архив</div>
-			{!!archiveUsers.length && (
-				<div className={classes.cardSection}>
-					{archiveUsers?.map(
-						({
-							id,
-							username,
-							address: { city },
-							company: { name: companyName }
-						}) => (
-							<Card
-								key={id}
-								username={username}
-								city={city}
-								companyName={companyName}
-								cardId={id}
-							/>
-						)
-					)}
-				</div>
-			)}
+			<div style={{ paddingBottom: '20px' }}>
+				{!!archiveUsers.length && (
+					<div className={classes.cardSection}>
+						{archiveUsers?.map(
+							({
+								id,
+								username,
+								address: { city },
+								company: { name: companyName }
+							}) => (
+								<Card
+									key={id}
+									username={username}
+									city={city}
+									companyName={companyName}
+									cardId={id}
+								/>
+							)
+						)}
+					</div>
+				)}
+			</div>
 		</>
 	)
 }
