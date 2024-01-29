@@ -11,19 +11,19 @@ export const Tabs = ({ active, clickHandler }: ITabsProps) => {
 	const menuItem = [
 		{
 			title: 'Данные профиля',
-			tab: 'profileData'
+			tabLink: 'profileData'
 		},
 		{
 			title: 'Рабочее пространство',
-			tab: 'workingSpace'
+			tabLink: 'workingSpace'
 		},
 		{
 			title: 'Приватность',
-			tab: 'privacy'
+			tabLink: 'privacy'
 		},
 		{
 			title: 'Безопасность',
-			tab: 'safety'
+			tabLink: 'safety'
 		}
 	]
 
@@ -33,9 +33,9 @@ export const Tabs = ({ active, clickHandler }: ITabsProps) => {
 				<div
 					key={index}
 					className={cn(classes.tabs__item, {
-						[classes.tabs__item_active]: active === item.tab
+						[classes.tabs__item_active]: active === item.tabLink
 					})}
-					onClick={() => clickHandler(item.tab)}
+					onClick={() => clickHandler(item.tabLink)}
 				>
 					{item.title}
 				</div>

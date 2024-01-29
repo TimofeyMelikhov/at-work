@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 import foto from 'src/assets/img/Foto.png'
 
 import classes from 'src/components/header/header.module.scss'

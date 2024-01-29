@@ -33,23 +33,25 @@ export const UserInfoForm = ({ setModalActive }: IUserInfoFormProps) => {
 	}, [user, dispatch])
 
 	const handleSaveChanges = () => {
-		const updatedUser: IUser = {
-			...user,
-			name,
-			username,
-			email,
-			address: {
-				...user?.address,
-				city
-			},
-			phone,
-			company: {
-				...user?.company,
-				name: companyName
+		if (user) {
+			const updatedUser: IUser = {
+				...user,
+				name,
+				username,
+				email,
+				address: {
+					...user.address,
+					city
+				},
+				phone,
+				company: {
+					...user.company,
+					name: companyName
+				}
 			}
+			dispatch(updateUserData(updatedUser))
+			setModalActive(true)
 		}
-		dispatch(updateUserData(updatedUser))
-		setModalActive(true)
 	}
 
 	return (
