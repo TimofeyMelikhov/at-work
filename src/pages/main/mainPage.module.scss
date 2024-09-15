@@ -1,0 +1,22 @@
+@import 'src/assets/style/variables';
+
+.titleSection {
+	margin-top: 42px;
+	border-bottom: 1px solid $Color-04;
+	padding-bottom: 18px;
+	font-size: 24px;
+	font-family: $default-font-M;
+	font-weight: 600;
+	color: $Color-01;
+}
+
+.cardSection {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	gap: 28px;
+	margin-top: 28px;
+	@media only screen and (max-width: 768px) {
+		gap: 20px;
+	}
+}
